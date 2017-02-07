@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#define WORDSIZE 32
+#define WORDSIZE 4
 
 int* binToDec(int number){
     int *num = (int *)malloc(sizeof(int) * WORDSIZE);
@@ -25,15 +25,30 @@ int* binToDec(int number){
     }
     return num;
 }
+void complement_of_two(int *number){
+    int i = WORDSIZE - 1;
+    int state = 0;
+    while(i >= 0){
+        if(state){
+            number[i] = (number[i] == 1)? 0 : 1;
+        }
+        if(number[i] == 1){
+            state = 1;
+        }
+        i--;
+    }
+}
 int main(){
-    printf("Informe um valor:\n");
-    int a;
-    scanf("%d", &a);
-    printf("\n");
-    int *ptr = binToDec(a);
+    int *ptr = binToDec(2);
     int i = 0;
     for(i=0;i<WORDSIZE;i++){
         printf("%d", ptr[i]);
+    }
+    printf("\n");
+    int *pt = ptr;
+    complement_of_two(pt);
+    for(i=0;i<WORDSIZE;i++){
+        printf("%d", pt[i]);
     }
     return 0;
 }
